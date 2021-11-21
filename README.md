@@ -10,7 +10,7 @@ ID kaardiga sisse logimine tagab turvalisuse ja seob kasutaja oma anonüümse pr
 
 ## Wireframe
 
-x
+![Wireframe](https://github.com/rakenduste-programmeerimine-2021/anonyymne-sonumilaud/blob/main/wireframes/wireframe01.png)
 
 ## Technologies
 ### Frontend
