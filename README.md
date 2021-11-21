@@ -1,5 +1,9 @@
 # Anonüümne sõnumilaud (Anonymous message board)
 
+## Setup and run
+npm install
+npm start
+
 ## Authors
 - Johan Valdemar Leoste
 - Karl Aleksander Leoste
