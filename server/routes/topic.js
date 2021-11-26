@@ -5,7 +5,7 @@ const helper = require('../helper');
 
 module.exports = (router) => {
   router.get('/topic/:topicId', (req, res) => {
-    Topic.findOne({id: req.params.topicId})
+    Topic.findOne({_id: req.params.topicId})
       .then(doc => {
         if (doc) {
           // send it to the user

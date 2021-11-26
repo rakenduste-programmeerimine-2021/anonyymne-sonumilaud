@@ -15,7 +15,7 @@ module.exports = (router) => {
   });
 
   router.post('/thought/remove/:thoughtId', (req, res) => {
-    Thought.findOne({id: req.params.thoughtId})
+    Thought.findOne({_id: req.params.thoughtId})
       .then(doc => {
         if (doc) {
           // check if user has permission to delete it then delete it
@@ -28,7 +28,7 @@ module.exports = (router) => {
   });
 
   router.post('/thought/edit/:thoughtId', (req, res) => {
-    Thought.findOne({id: req.params.thoughtId})
+    Thought.findOne({_id: req.params.thoughtId})
       .then(doc => {
         if (doc) {
           // check if user has permission to edit it then edit it
@@ -41,7 +41,7 @@ module.exports = (router) => {
   });
 
   router.post('/thought/reaction/add/:thoughtId', (req, res) => {
-    const reaction = new Reaction(req.body);
+    const reaction = new Reaction(req.body);    
     reaction.save()
       .then(doc => {
         res.sendStatus(200);
@@ -50,7 +50,7 @@ module.exports = (router) => {
   });
 
   router.post('/thought/reaction/remove/:reactionId', (req, res) => {
-    Reaction.findOne({id: req.params.reactionId})
+    Reaction.findOne({_id: req.params.reactionId})
       .then(doc => {
         if (doc) {
           // check if user has permission to delete it then delete it
@@ -63,7 +63,7 @@ module.exports = (router) => {
   });
 
   router.get('/thought/:thoughtId', (req, res) => {
-    Reaction.findOne({id: req.params.thoughtId})
+    Reaction.findOne({_id: req.params.thoughtId})
       .then(doc => {
         if (doc) {
           // send it to the user
