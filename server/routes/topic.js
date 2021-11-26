@@ -1,10 +1,18 @@
 const mongoose = require('mongoose');
+const Topic = mongoose.model('Topic');
+
+const helper = require('../helper');
 
 module.exports = (router) => {
-    router.get('/topic/view/:topicId', (req, res) => {
-        let topicId = req.params.topicId;
+  router.get('/topic/:topicId', (req, res) => {
+    Topic.findOne({id: req.params.topicId})
+      .then(doc => {
+        if (doc) {
+          // send it to the user
+        }
+      })
 
-        // not implemented
-        res.sendStatus(501);
-    });
+    // not implemented
+    res.sendStatus(501);
+  });
 }
