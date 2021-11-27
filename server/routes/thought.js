@@ -15,12 +15,11 @@ module.exports = (router) => {
   });
 
   router.post('/thought/remove/:thoughtId', (req, res) => {
-    Thought.findOne({_id: req.params.thoughtId})
-      .then(doc => {
-        if (doc) {
-          // check if user has permission to delete it then delete it
-        }
-      })
+    // for now there is no permission checking. must be added later !!!
+    Thought.findOneAndRemove({_id: req.params.thoughtId})
+    .then(doc => {
+      res.sendStatus(200);
+    })
       .catch(err => helper.genericErrorHandler(err, res));
 
     // not implemented
@@ -28,16 +27,12 @@ module.exports = (router) => {
   });
 
   router.post('/thought/edit/:thoughtId', (req, res) => {
-    Thought.findOne({_id: req.params.thoughtId})
+    // for now there is no permission checking. must be added later !!!
+    Thought.findOneAndUpdate({_id: req.params.thoughtId}, req.body)
       .then(doc => {
-        if (doc) {
-          // check if user has permission to edit it then edit it
-        }
+        res.sendStatus(200);
       })
       .catch(err => helper.genericErrorHandler(err, res));
-
-    // not implemented
-    res.sendStatus(501);
   });
 
   router.post('/thought/reaction/add/:thoughtId', (req, res) => {
@@ -50,12 +45,11 @@ module.exports = (router) => {
   });
 
   router.post('/thought/reaction/remove/:reactionId', (req, res) => {
-    Reaction.findOne({_id: req.params.reactionId})
-      .then(doc => {
-        if (doc) {
-          // check if user has permission to delete it then delete it
-        }
-      })
+    // for now there is no permission checking. must be added later !!!
+    Reaction.findOneAndRemove({_id: req.params.reactionId})
+    .then(doc => {
+      res.sendStatus(200);
+    })
       .catch(err => helper.genericErrorHandler(err, res));
 
     // not implemented
