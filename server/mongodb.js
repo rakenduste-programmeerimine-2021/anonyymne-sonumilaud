@@ -9,6 +9,8 @@ mongoose.connect(url, {
   useNewUrlParser: true,
   useUnifiedTopology: true
 })
-fs.readdirSync(path.join(__dirname, '/models')).forEach(file => {
-  require('./models/' + file)
-})
+
+require('./models/User');
+require('./models/Topic');
+require('./models/Thought');
+require('./models/Reaction');
