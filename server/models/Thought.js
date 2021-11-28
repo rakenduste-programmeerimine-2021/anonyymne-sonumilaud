@@ -5,8 +5,8 @@ const User = mongoose.model('User');
 const Topic = mongoose.model('Topic');
 
 const ThoughtSchema = new Schema({
-    user: { type: User.schema },
-    topics: { type: Topic.schema },
+    user: { type: User.schema, ref: User },
+    topics: { type: Topic.schema, ref: Topic },
     text: {
       type: String
     }
