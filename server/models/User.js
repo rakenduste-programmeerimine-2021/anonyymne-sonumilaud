@@ -6,7 +6,8 @@ const UserSchema = new Schema({
   username: {
     type: String,
     unique: 'Username already exists',
-    trim: true
+    trim: true,
+    required: true
   },
   email: {
     type: String,
