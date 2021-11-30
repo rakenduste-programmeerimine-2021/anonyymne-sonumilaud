@@ -1,18 +1,19 @@
 const mongoose = require('mongoose');
-const Topic = mongoose.model('Topic');
+const User = mongoose.model('User');
 
 const helper = require('../helper');
 
 module.exports = (router) => {
-  router.get('/topic', (req, res) => {
-    Topic.find()
+  router.get('/user', (req, res) => {
+    User.find()
       .then(doc => {
         res.json(doc);
       })
       .catch(err => helper.genericErrorHandler(err, res));
-  })
-  router.get('/topic/:topicId', (req, res) => {
-    Topic.findOne({_id: new mongoose.Types.ObjectId(req.params.topicId)})
+  });
+
+  router.get('/thought/:userId', (req, res) => {
+    User.findOne({_id: req.params.userId})
       .then(doc => {
         res.json(doc);
       })

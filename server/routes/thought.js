@@ -5,37 +5,44 @@ const Reaction = mongoose.model('Reaction');
 const helper = require('../helper');
 
 module.exports = (router) => {
+  router.get('/thought', (req, res) => {
+    Thought.find()
+      .populate('user')
+      .populate('topics')
+      .then(doc => {
+        res.json(doc);
+      })
+      .catch(err => helper.genericErrorHandler(err, res));
+  });
+
   router.post('/thought/add', (req, res) => {
-    const thought = new Thought(req.body);
+    const thought = new Thought({...req.body, user: new mongoose.Types.ObjectId(req.body.userId)});
     thought.save()
       .then(doc => {
-        res.sendStatus(200);
+        res.json(doc);
       })
       .catch(err => helper.genericErrorHandler(err, res));
   });
 
   router.post('/thought/remove/:thoughtId', (req, res) => {
     // for now there is no permission checking. must be added later !!!
-    Thought.findOneAndRemove({_id: req.params.thoughtId})
-    .then(doc => {
-      res.sendStatus(200);
-    })
-      .catch(err => helper.genericErrorHandler(err, res));
-
-    // not implemented
-    res.sendStatus(501);
-  });
-
-  router.post('/thought/edit/:thoughtId', (req, res) => {
-    // for now there is no permission checking. must be added later !!!
-    Thought.findOneAndUpdate({_id: req.params.thoughtId}, req.body)
+    Thought.findOneAndRemove({_id: new mongoose.Types.ObjectId(req.params.thoughtId)})
       .then(doc => {
         res.sendStatus(200);
       })
       .catch(err => helper.genericErrorHandler(err, res));
   });
 
-  router.post('/thought/reaction/add/:thoughtId', (req, res) => {
+  router.put('/thought/edit/:thoughtId', (req, res) => {
+    // for now there is no permission checking. must be added later !!!
+    Thought.findOneAndUpdate({_id: new mongoose.Types.ObjectId(req.params.thoughtId)}, req.body)
+      .then(doc => {
+        res.sendStatus(200);
+      })
+      .catch(err => helper.genericErrorHandler(err, res));
+  });
+
+  router.post('/thought/reaction/add', (req, res) => {
     const reaction = new Reaction(req.body);    
     reaction.save()
       .then(doc => {
@@ -46,25 +53,20 @@ module.exports = (router) => {
 
   router.post('/thought/reaction/remove/:reactionId', (req, res) => {
     // for now there is no permission checking. must be added later !!!
-    Reaction.findOneAndRemove({_id: req.params.reactionId})
-    .then(doc => {
-      res.sendStatus(200);
-    })
+    Reaction.findOneAndRemove({_id: new mongoose.Types.ObjectId(req.params.reactionId)})
+      .then(doc => {
+        res.sendStatus(200);
+      })
       .catch(err => helper.genericErrorHandler(err, res));
-
-    // not implemented
-    res.sendStatus(501);
   });
 
   router.get('/thought/:thoughtId', (req, res) => {
-    Reaction.findOne({_id: req.params.thoughtId})
+    Reaction.findOne({_id: new mongoose.Types.ObjectId(req.params.thoughtId)})
+      .populate('user')
+      .populate('topics')
       .then(doc => {
-        if (doc) {
-          // send it to the user
-        }
+        res.json(doc);
       })
-
-    // not implemented
-    res.sendStatus(501);
+      .catch(err => helper.genericErrorHandler(err, res));
   });
 }

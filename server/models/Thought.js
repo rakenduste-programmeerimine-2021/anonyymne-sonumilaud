@@ -5,11 +5,9 @@ const User = mongoose.model('User');
 const Topic = mongoose.model('Topic');
 
 const ThoughtSchema = new Schema({
-    user: { type: User.schema, ref: User },
-    topics: { type: Topic.schema, ref: Topic },
-    text: {
-      type: String
-    }
+    userId: { type: mongoose.Types.ObjectId, ref: User, required: true },
+    topicsId: { type: mongoose.Types.ObjectId, ref: Topic },
+    text: { type: String, required: true }
 });
 
 mongoose.model('Thought', ThoughtSchema);
