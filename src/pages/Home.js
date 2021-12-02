@@ -1,16 +1,42 @@
 import React, {PureComponent} from 'react';
 import {connect} from 'react-redux';
+import { Layout, Card ,message} from "antd";
+import { renderIf } from "../utils/commonUtils";
+import axios from "axios";
+import ThoughtList from '../components/ThoughtList';
+
+const { Content} = Layout;
 
 class Home extends PureComponent {
-  render () {
+  constructor(props) {
+    super(props);
+    this.state = {
+      testList: [],
+    };
+  }
+  componentDidMount = () => {
+    const userId = this.props.user.getIn(["user", "_id"], "");
+    axios
+      .get("api/thought/")
+      .then((res) => {this.setState({testList: res.data});})
+      .catch((err) => {
+        if (err.response) {
+          message.error(err.response.status);
+        } else {
+        }
+      });
+    }
+  render() {
+    const data = this.state.testList;
+    console.log(data);
     return (
-      <div className={'container'}>
-        <div className={'row'}>
-          <div className={'col-xs-12'}>
-            <p>home</p>
-          </div>
-        </div>
-      </div>
+          <Content style={{ padding: "0 24px", minHeight: 280 }}>
+            {renderIf(data)(
+            <ThoughtList thoughts={data}/>
+          )}
+        
+          </Content>
+        
     );
   }
 }
