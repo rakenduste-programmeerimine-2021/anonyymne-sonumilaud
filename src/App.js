@@ -7,7 +7,10 @@ import Home from './pages/Home'
 import Register from './pages/Register'
 import { Layout, Spin } from 'antd'
 import * as actions from './redux/actions'
+import RightSideMenu from './components/RightSideMenu'
+import LeftSideMenu from './components/LeftSideMenu'
 import PageHeader from './components/PageHeader'
+import AddThought from './pages/AddThought'
 
 const { Content, Footer } = Layout
 
@@ -29,17 +32,17 @@ class App extends PureComponent {
 
     return (
       <Layout className="layout">
-        <PageHeader/>
+        <RightSideMenu/>
         <Content style={{ padding: '0 50px' }}>
           <div style={{ background: '#fff', padding: 24, minHeight: 280, marginTop: 50 }}>
             <Route exact path="/" component={Home}/>
             <Route exact path="/login" component={Login}/>
             <Route exact path="/register" component={Register}/>
+            <Route exact path="/addthought" component={AddThought}/>
           </div>
         </Content>
-        <Footer style={{ textAlign: 'center' }}>
-          React Node Starter
-        </Footer>
+        <LeftSideMenu/>
+
       </Layout>
     )
   }
