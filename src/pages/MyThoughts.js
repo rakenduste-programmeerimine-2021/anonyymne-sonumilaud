@@ -7,7 +7,7 @@ import ThoughtList from '../components/ThoughtList';
 
 const { Content} = Layout;
 
-class Home extends PureComponent {
+class MyThoughts extends PureComponent {
   constructor(props) {
     super(props);
     this.state = {
@@ -17,7 +17,7 @@ class Home extends PureComponent {
   componentDidMount = () => {
     const userId = this.props.user.getIn(["user", "_id"], "");
     axios
-      .get("api/thought/")
+      .get("api/thought/find/" + userId)
       .then((res) => {this.setState({testList: res.data});})
       .catch((err) => {
         if (err.response) {
@@ -32,7 +32,7 @@ class Home extends PureComponent {
     return (
           <Content style={{ padding: "0 24px", minHeight: 280 }}>
             {renderIf(data)(
-            <ThoughtList thoughts={data} owner={false}/>
+            <ThoughtList thoughts={data} owner={true}/>
           )}
         
           </Content>
@@ -46,4 +46,4 @@ const mapStateToProps = state => {
   return {user};
 };
 
-export default connect(mapStateToProps)(Home);
+export default connect(mapStateToProps)(MyThoughts);

@@ -18,4 +18,13 @@ module.exports = (router) => {
       })
       .catch(err => helper.genericErrorHandler(err, res));
   });
+  router.post('/topic/add', (req, res) => {
+    const topic = new Topic({...req.body});
+    topic.save()
+      .then(doc => {
+        res.json(doc);
+      })
+      .catch(err => helper.genericErrorHandler(err, res));
+  });
+
 }

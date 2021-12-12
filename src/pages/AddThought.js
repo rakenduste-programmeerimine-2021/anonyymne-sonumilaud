@@ -2,9 +2,12 @@ import React, { PureComponent } from "react";
 import axios from "axios";
 import { Link, withRouter } from "react-router-dom";
 import { connect } from "react-redux";
-import { Form, Input, Button, message } from "antd";
+import { Form, Input, Button, message, Select } from "antd";
 import { UserOutlined } from "@ant-design/icons";
-
+const { Option } = Select;
+function handleChange(value) {
+  console.log(`selected ${value}`);
+}
 class AddThought extends PureComponent {
     constructor(props) {
         super(props);
@@ -18,7 +21,7 @@ class AddThought extends PureComponent {
     axios
       .post("api/thought/add", {
         userId: userId,
-        topicsId: values.topics,
+        topics: values.topic,
         text: values.text,
       })
       .then((res) => {
@@ -60,6 +63,14 @@ class AddThought extends PureComponent {
           ]}
         >
           <Input />
+        </Form.Item>
+        <Form.Item
+          label="Topic"
+          name={"topic"}
+        >
+          <Select defaultValue="61b65942ed2d5178169d0e3d" style={{ width: 120 }} onChange={handleChange}>
+            <Option value="61b65942ed2d5178169d0e3d">Test</Option>
+          </Select>
         </Form.Item>
         <Form.Item>
           <Button

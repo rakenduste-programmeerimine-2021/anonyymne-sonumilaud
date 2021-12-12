@@ -3,7 +3,7 @@ import { Link, withRouter } from "react-router-dom";
 import { connect } from "react-redux";
 import axios from "axios";
 import { renderIf } from "../utils/commonUtils";
-import { Layout, Menu, Input, Typography, PageHeader } from "antd";
+import { Layout, Menu, Input, Typography, Image } from "antd";
 import { CaretDownOutlined } from "@ant-design/icons";
 
 const SubMenu = Menu.SubMenu;
@@ -55,7 +55,7 @@ class RightSideMenu extends PureComponent {
 
     return (
       <Sider className="site-layout-background" >
-        <div className="logo">Logo</div>
+        <div className="logo"><Image src="public/logo.jpg"/></div>
         <Menu
           theme="dark"
           mode="inline"
@@ -80,6 +80,9 @@ class RightSideMenu extends PureComponent {
               </Menu.Item>
               <Menu.Item key="/addthought">
               <Link to={"/addthought"}>Add Thought 🤔</Link>
+              </Menu.Item>
+              <Menu.Item key="/mythoughts">
+              <Link to={"/mythoughts"}>My Thoughts 🤭</Link>
               </Menu.Item>
             </SubMenu>
           )}

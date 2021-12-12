@@ -16,7 +16,7 @@ module.exports = (router) => {
   });
 
   router.post('/thought/add', (req, res) => {
-    const thought = new Thought({...req.body, user: new mongoose.Types.ObjectId(req.body.userId)});
+    const thought = new Thought({...req.body, user: new mongoose.Types.ObjectId(req.body.userId),topics: new mongoose.Types.ObjectId(req.body.topicId)});
     thought.save()
       .then(doc => {
         res.json(doc);

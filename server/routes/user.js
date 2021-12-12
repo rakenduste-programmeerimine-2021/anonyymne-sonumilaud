@@ -12,8 +12,10 @@ module.exports = (router) => {
       .catch(err => helper.genericErrorHandler(err, res));
   });
 
-  router.get('/thought/:userId', (req, res) => {
-    User.findOne({_id: req.params.userId})
+  router.get('/thought/find/:userId', (req, res) => {
+    Thought.find({user: new mongoose.Types.ObjectId(req.params.userId)})
+      .populate('user')
+      .populate('topics')
       .then(doc => {
         res.json(doc);
       })
