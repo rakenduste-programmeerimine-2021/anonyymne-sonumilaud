@@ -15,7 +15,7 @@ module.exports = (router) => {
   router.get('/thought/find/:userId', (req, res) => {
     Thought.find({user: new mongoose.Types.ObjectId(req.params.userId)})
       .populate('user')
-      .populate('topics')
+      .populate('topic')
       .then(doc => {
         res.json(doc);
       })

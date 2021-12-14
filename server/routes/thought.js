@@ -1,6 +1,7 @@
 const mongoose = require('mongoose');
 const Thought = mongoose.model('Thought');
 const Reaction = mongoose.model('Reaction');
+const Topic = mongoose.model('Topic');
 
 const helper = require('../helper');
 
@@ -8,7 +9,7 @@ module.exports = (router) => {
   router.get('/thought', (req, res) => {
     Thought.find()
       .populate('user')
-      .populate('topics')
+      .populate('topic')
       .then(doc => {
         res.json(doc);
       })
@@ -16,7 +17,7 @@ module.exports = (router) => {
   });
 
   router.post('/thought/add', (req, res) => {
-    const thought = new Thought({...req.body, user: new mongoose.Types.ObjectId(req.body.userId),topics: new mongoose.Types.ObjectId(req.body.topicId)});
+    const thought = new Thought({...req.body, user: new mongoose.Types.ObjectId(req.body.userId),topic: new mongoose.Types.ObjectId(req.body.topicId)});
     thought.save()
       .then(doc => {
         res.json(doc);
@@ -63,7 +64,7 @@ module.exports = (router) => {
   router.get('/thought/:thoughtId', (req, res) => {
     Reaction.findOne({_id: new mongoose.Types.ObjectId(req.params.thoughtId)})
       .populate('user')
-      .populate('topics')
+      .populate('topic')
       .then(doc => {
         res.json(doc);
       })

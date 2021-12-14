@@ -13,6 +13,9 @@ function Thought(props) {
       extra={<Text code>{date.toEmoji()+ "📅"+ date.getFullYear() + "-"+ date.getMonth()+ "-" + date.getDate() }</Text>}
     >
     <Text type="default">{props.text}</Text>
+    {renderIf(props.topic)(
+      <Text type="default">AAAAAAAAAAAAAa</Text>
+    )}
     {renderIf(props.owner)(
       <Text type="default">AAAAAAAAAAAAAa</Text>
     )}

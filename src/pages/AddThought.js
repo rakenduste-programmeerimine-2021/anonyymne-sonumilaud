@@ -5,9 +5,6 @@ import { connect } from "react-redux";
 import { Form, Input, Button, message, Select } from "antd";
 import { UserOutlined } from "@ant-design/icons";
 const { Option } = Select;
-function handleChange(value) {
-  console.log(`selected ${value}`);
-}
 class AddThought extends PureComponent {
     constructor(props) {
         super(props);
@@ -15,13 +12,16 @@ class AddThought extends PureComponent {
           selectedKeys: [],
         };
       }
-      
+    
   handleSubmit = (values) => {
     const userId = this.props.user.getIn(["user", "_id"], "");
+    console.log(this.state.topic);
+    console.log(values.topic);
     axios
       .post("api/thought/add", {
         userId: userId,
-        topics: values.topic,
+        
+        topicId: values.state.topic,
         text: values.text,
       })
       .then((res) => {
@@ -68,8 +68,10 @@ class AddThought extends PureComponent {
           label="Topic"
           name={"topic"}
         >
-          <Select defaultValue="61b65942ed2d5178169d0e3d" style={{ width: 120 }} onChange={handleChange}>
-            <Option value="61b65942ed2d5178169d0e3d">Test</Option>
+          <Select defaultValue="61b792a6afc052f40abd0e43" style={{ width: 120 }}  onChange={value => {
+                this.setState({ topic: value });
+              }}>
+            <Option value="61b792a6afc052f40abd0e43">Test</Option>
           </Select>
         </Form.Item>
         <Form.Item>
