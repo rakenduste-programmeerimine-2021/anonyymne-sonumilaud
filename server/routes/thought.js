@@ -36,7 +36,7 @@ module.exports = (router) => {
 
   router.put('/thought/edit/:thoughtId', (req, res) => {
     // for now there is no permission checking. must be added later !!!
-    Thought.findOneAndUpdate({_id: new mongoose.Types.ObjectId(req.params.thoughtId)}, req.body)
+    Thought.findOneAndUpdate({_id: new mongoose.Types.ObjectId(req.params.thoughtId)},{topic: new mongoose.Types.ObjectId(req.body.topicId), text: req.body.text})
       .then(doc => {
         res.sendStatus(200);
       })
@@ -61,7 +61,7 @@ module.exports = (router) => {
       .catch(err => helper.genericErrorHandler(err, res));
   });
 
-  router.get('/thought/:thoughtId', (req, res) => {
+  /*router.get('/thought/:thoughtId', (req, res) => {
     Reaction.findOne({_id: new mongoose.Types.ObjectId(req.params.thoughtId)})
       .populate('user')
       .populate('topic')
@@ -69,5 +69,5 @@ module.exports = (router) => {
         res.json(doc);
       })
       .catch(err => helper.genericErrorHandler(err, res));
-  });
+  });*/
 }

@@ -3,17 +3,15 @@ import { Link, withRouter } from "react-router-dom";
 import { connect } from "react-redux";
 import axios from "axios";
 import { renderIf } from "../utils/commonUtils";
-import { Layout, Menu, Input, Typography, Image } from "antd";
-import { CaretDownOutlined } from "@ant-design/icons";
-
+import { Layout, Menu,Image } from "antd";
+import TopicList from '../components/TopicList';
 const SubMenu = Menu.SubMenu;
-const { Header, Content, Footer, Sider } = Layout;
-const { Search, Button } = Input;
-const { Title } = Typography;
+const {  Sider } = Layout;
 class RightSideMenu extends PureComponent {
   constructor(props) {
     super(props);
     this.state = {
+      testList:[],
       selectedKeys: [],
     };
   }
@@ -33,6 +31,15 @@ class RightSideMenu extends PureComponent {
 
   componentDidMount = () => {
     this.correctSelectedMenu();
+    axios
+      .get("api/topic/")
+      .then((res) => {this.setState({testList: res.data});})
+      .catch((err) => {
+        if (err.response) {
+          message.error(err.response.status);
+        } else {
+        }
+      });
   };
 
   componentDidUpdate = (prevProps, prevState, snapshot) => {
@@ -52,9 +59,9 @@ class RightSideMenu extends PureComponent {
   render() {
     const user = this.props.user.get("user");
     const username = this.props.user.getIn(["user", "username"], "");
-
+    const data = this.state.testList;
     return (
-      <Sider className="site-layout-background" >
+      <Sider className="site-layout-background" theme="dark" >
         <div className="logo"><Image src="public/logo.jpg"/></div>
         <Menu
           theme="dark"
@@ -64,7 +71,7 @@ class RightSideMenu extends PureComponent {
           style={{ lineHeight: "64px" }}
         >
           <Menu.Item key="/">
-            <Link to={"/"}>Home 🏠</Link>
+            <Link to={"/"}>🏠Home </Link>
           </Menu.Item>
           {renderIf(user)(
             <SubMenu
@@ -76,21 +83,38 @@ class RightSideMenu extends PureComponent {
               }
             >
               <Menu.Item key="/logout" onClick={this.onLogout}>
-                Logout 🚪
+              🚪Logout 
               </Menu.Item>
               <Menu.Item key="/addthought">
-              <Link to={"/addthought"}>Add Thought 🤔</Link>
+              <Link to={"/addthought"}>🤔Add Thought </Link>
               </Menu.Item>
               <Menu.Item key="/mythoughts">
-              <Link to={"/mythoughts"}>My Thoughts 🤭</Link>
+              <Link to={"/mythoughts"}>🤭My Thoughts </Link>
               </Menu.Item>
             </SubMenu>
           )}
           {renderIf(!user)(
-            <Menu.Item key="/login" style={{}}>
-              <Link to={"/login"}>Login 🔐</Link>
+            <><Menu.Item key="/login" style={{}}>
+              <Link to={"/login"}>🔐Login </Link>
             </Menu.Item>
+            <Menu.Item key="/register" style={{}}>
+            <Link to={"/register"}>🆓Register </Link>
+          </Menu.Item>
+            </>
           )}
+        </Menu>
+        <Menu
+          theme="dark"
+          mode="inline"
+          selectedKeys={this.state.selectedKeys}
+          defaultOpenKeys={["test2"]}
+          style={{ lineHeight: "64px" }}
+        >
+          <SubMenu
+              key="test2"
+              title={<span>🔥Hot Topics </span>}>
+              <TopicList topics={data}/>
+          </SubMenu>
         </Menu>
       </Sider>
     );

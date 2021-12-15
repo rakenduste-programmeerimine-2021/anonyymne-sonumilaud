@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 const User = mongoose.model('User');
-
+const Thought = mongoose.model('Thought');
 const helper = require('../helper');
 
 module.exports = (router) => {

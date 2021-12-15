@@ -43,8 +43,6 @@ class App extends PureComponent {
             <Route exact path="/mythoughts" component={MyThoughts}/>
           </div>
         </Content>
-        <LeftSideMenu/>
-
       </Layout>
     )
   }

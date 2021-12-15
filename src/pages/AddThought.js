@@ -2,26 +2,18 @@ import React, { PureComponent } from "react";
 import axios from "axios";
 import { Link, withRouter } from "react-router-dom";
 import { connect } from "react-redux";
-import { Form, Input, Button, message, Select } from "antd";
-import { UserOutlined } from "@ant-design/icons";
-const { Option } = Select;
+import { Form, Input, Button, message } from "antd";
+import { UserOutlined,ReadOutlined,RobotOutlined } from "@ant-design/icons";
 class AddThought extends PureComponent {
     constructor(props) {
         super(props);
-        this.state = {
-          selectedKeys: [],
-        };
       }
-    
-  handleSubmit = (values) => {
+  addPost = (values) =>{
     const userId = this.props.user.getIn(["user", "_id"], "");
-    console.log(this.state.topic);
-    console.log(values.topic);
     axios
       .post("api/thought/add", {
         userId: userId,
-        
-        topicId: values.state.topic,
+        topicId:values.topicId,
         text: values.text,
       })
       .then((res) => {
@@ -32,6 +24,33 @@ class AddThought extends PureComponent {
           message.error("Adding failed: user not exist or password incorrect.");
         } else {
           message.error("Adding failed");
+        }
+      });
+  }   
+  handleSubmit = (values) => {
+    axios
+      .get("api/topic/name/" + values.topic)
+      .then((res) => {
+        if(!res.data){
+          axios
+          .post("api/topic/add", {
+            name: values.topic,
+          })
+          .then((res) => {
+            values.topicId = res.data._id;
+            this.addPost(values);
+          })
+          .catch((err) => {
+          });}else{
+            values.topicId = res.data._id;
+            this.addPost(values);}
+        
+        }
+      )
+      .catch((err) => {
+        if (err.response) {
+          message.error(err.response.status);
+        } else {
         }
       });
   };
@@ -53,7 +72,7 @@ class AddThought extends PureComponent {
            disabled= {true}
            prefix={<UserOutlined/>}
            placeholder={username} />
-        </Form.Item>
+        </Form.Item>  
 
         <Form.Item
           label="Text"
@@ -62,17 +81,17 @@ class AddThought extends PureComponent {
             { required: true, message: "aaa" },
           ]}
         >
-          <Input />
+          <Input
+          prefix={<ReadOutlined/>}
+          placeholder="tekst" />
         </Form.Item>
         <Form.Item
           label="Topic"
           name={"topic"}
         >
-          <Select defaultValue="61b792a6afc052f40abd0e43" style={{ width: 120 }}  onChange={value => {
-                this.setState({ topic: value });
-              }}>
-            <Option value="61b792a6afc052f40abd0e43">Test</Option>
-          </Select>
+          <Input
+          prefix={<RobotOutlined/>}
+           placeholder="toopiline" />
         </Form.Item>
         <Form.Item>
           <Button
