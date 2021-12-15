@@ -78,7 +78,7 @@ class RightSideMenu extends PureComponent {
               key="test"
               title={
                 <span>
-                  <span>Welcome, {username}&nbsp;</span>
+                  <span>👋Hi, {username}&nbsp;</span>
                 </span>
               }
             >
