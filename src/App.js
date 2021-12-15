@@ -9,8 +9,9 @@ import { Layout, Spin } from 'antd'
 import * as actions from './redux/actions'
 import RightSideMenu from './components/RightSideMenu'
 import LeftSideMenu from './components/LeftSideMenu'
-import PageHeader from './components/PageHeader'
+//import PageHeader from './components/PageHeader'
 import AddThought from './pages/AddThought'
+import MyThoughts from './pages/MyThoughts'
 
 const { Content, Footer } = Layout
 
@@ -39,10 +40,9 @@ class App extends PureComponent {
             <Route exact path="/login" component={Login}/>
             <Route exact path="/register" component={Register}/>
             <Route exact path="/addthought" component={AddThought}/>
+            <Route exact path="/mythoughts" component={MyThoughts}/>
           </div>
         </Content>
-        <LeftSideMenu/>
-
       </Layout>
     )
   }
