@@ -18,4 +18,20 @@ module.exports = (router) => {
       })
       .catch(err => helper.genericErrorHandler(err, res));
   });
+  router.get('/topic/name/:topicName', (req, res) => {
+    Topic.findOne({name: req.params.topicName})
+      .then(doc => {
+        res.json(doc);
+      })
+      .catch(err => helper.genericErrorHandler(err, res));
+  });
+  router.post('/topic/add', (req, res) => {
+    const topic = new Topic({...req.body});
+    topic.save()
+      .then(doc => {
+        res.json(doc);
+      })
+      .catch(err => helper.genericErrorHandler(err, res));
+  });
+
 }
