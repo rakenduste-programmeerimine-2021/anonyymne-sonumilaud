@@ -60,14 +60,4 @@ module.exports = (router) => {
       })
       .catch(err => helper.genericErrorHandler(err, res));
   });
-
-  /*router.get('/thought/:thoughtId', (req, res) => {
-    Reaction.findOne({_id: new mongoose.Types.ObjectId(req.params.thoughtId)})
-      .populate('user')
-      .populate('topic')
-      .then(doc => {
-        res.json(doc);
-      })
-      .catch(err => helper.genericErrorHandler(err, res));
-  });*/
 }
