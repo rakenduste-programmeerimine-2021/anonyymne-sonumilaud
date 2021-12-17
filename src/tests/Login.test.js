@@ -2,7 +2,8 @@ import { render, screen } from './test-utils';
 import Login from '../pages/Login';
 
 test('Login loads', async () => {
-    //todo
-    /*render(<Login />);
-    screen.debug();*/
+    render(<Login />);
+    screen.getByText(/Login/);
+    screen.getByText(/Email/);
+    screen.getByText(/Password/);
 });

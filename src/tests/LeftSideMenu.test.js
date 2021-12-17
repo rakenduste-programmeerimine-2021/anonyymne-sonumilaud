@@ -3,5 +3,5 @@ import LeftSideMenu from '../components/LeftSideMenu';
 
 test('leftsidemenu loads', async () => {
   render(<LeftSideMenu />);
-  screen.debug();
+  screen.getByText(/Popular Topics/);
 });

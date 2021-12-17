@@ -3,5 +3,6 @@ import PageHeader from '../components/PageHeader';
 
 test('pageheader loads', async () => {
   render(<PageHeader />);
-  screen.debug();
+  screen.getByText(/Home/);
+  screen.getByText(/Login/);
 });
