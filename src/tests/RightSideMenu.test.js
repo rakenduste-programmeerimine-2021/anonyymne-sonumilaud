@@ -3,5 +3,7 @@ import RightSideMenu from '../components/RightSideMenu';
 
 test('rightsidemenu loads', async () => {
   render(<RightSideMenu />);
-  screen.debug();
+  screen.getByText(/Home/);
+  screen.getByText(/Login/);
+  screen.getByText(/Register/);
 });

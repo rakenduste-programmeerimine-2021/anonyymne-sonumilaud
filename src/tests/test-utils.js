@@ -18,6 +18,14 @@ const AllTheProviders = ({children}) => {
   )
 }
 
+window.matchMedia = window.matchMedia || function() {
+  return {
+      matches: false,
+      addListener: function() {},
+      removeListener: function() {}
+  };
+};
+
 const customRender = (ui, options) =>
   render(ui, {wrapper: AllTheProviders, ...options})
 
